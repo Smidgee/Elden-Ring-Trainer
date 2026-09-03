@@ -2,8 +2,7 @@ namespace EldenRingTrainer
 {
     public class RunesService
     {
-        public int CurrentRuneAmount;
-        public int AddRuneAmount;
+        public int CurrentRuneAmount, AddRuneAmount;
 
         IntPtr runeAddress;
 
