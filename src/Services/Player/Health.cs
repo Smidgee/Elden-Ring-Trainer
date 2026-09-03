@@ -4,9 +4,7 @@
     {
         public int Health;
 
-        public IntPtr AddHPAddress;
-        public IntPtr YellowBarAddress;
-        public IntPtr BarSizeAddress;
+        public IntPtr AddHPAddress, YellowBarAddress, BarSizeAddress;
 
         public HealthService()
         {

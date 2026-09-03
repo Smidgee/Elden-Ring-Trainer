@@ -13,7 +13,7 @@ namespace EldenRingTrainer
         private readonly StatsService _statsService;
         private readonly HealthService _healthService;
 
-        string[] WeightOptions = { "Light Weight", "Medium Weight", "Heavy Charge", "OverLoaded" };
+        string[] WeightOptions = { "Light Weight", "Medium Weight", "Heavy Charge", "OverLoaded"};
 
         public RenderUI(RunesService runesService, StatsService statsService, HealthService healthService) : base(2560, 1440)
         {
@@ -24,7 +24,6 @@ namespace EldenRingTrainer
 
         protected override void Render()
         {
-
             ImGui.SetNextWindowSize(new Vector2(700, 400), ImGuiCond.Once);
 
             if (ImGui.IsKeyPressed(ImGuiKey.F11) && IsVisible)
@@ -90,7 +89,7 @@ namespace EldenRingTrainer
 
                             if (ImGui.ListBox("##WeightOptions", ref _statsService.Weight, WeightOptions, 4))
                             {
-                                _statsService.FixWeightObscruction();
+                                _statsService.FixWeightObstruction();
                                 _statsService.SetWeight(_statsService.Weight);
 
                             }

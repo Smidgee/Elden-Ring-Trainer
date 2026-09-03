@@ -2,26 +2,9 @@
 {
     public class StatsService
     {
-        public int Vigor;
-        public int Mind;
-        public int Endurance;
-        public int Strength;
-        public int Dexterity;
-        public int Intelligence;
-        public int Faith;
-        public int Arcane;
-        public int Weight;
+        public int Vigor, Mind, Endurance, Strength, Dexterity, Intelligence, Faith, Arcane, Weight;
 
-        public IntPtr VigorStatAddress;
-        public IntPtr MindStatAddress;
-        public IntPtr EnduranceStatAddress;
-        public IntPtr StrengthStatAddress;
-        public IntPtr DexterityStatAddress;
-        public IntPtr IntelligenceStatAddress;
-        public IntPtr FaithStatAddress;
-        public IntPtr ArcaneStatAddress;
-        public IntPtr WeightStateVisualAddress;
-        public IntPtr WeightRealStateAddress;
+        public IntPtr VigorStatAddress, MindStatAddress, EnduranceStatAddress, StrengthStatAddress, DexterityStatAddress, IntelligenceStatAddress, FaithStatAddress, ArcaneStatAddress, WeightStateVisualAddress, WeightRealStateAddress;
         public IntPtr WeightVisualObstructionAddress = Program.moduleBase + 0x7CC661;
         public IntPtr WeightRealObstructionAddress = Program.moduleBase + 0x661576;
 
@@ -54,7 +37,7 @@
             Program.swed.WriteInt(WeightRealStateAddress, Level + 1);
         }
 
-        public void FixWeightObscruction()
+        public void FixWeightObstruction()
         {
             Program.swed.WriteBytes(WeightVisualObstructionAddress, NewWeightVisualStateBytes);
             Program.swed.WriteBytes(WeightRealObstructionAddress, NewWeightRealStateBytes);
