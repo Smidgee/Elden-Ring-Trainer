@@ -60,40 +60,28 @@
             Program.swed.WriteBytes(WeightRealObstructionAddress, NewWeightRealStateBytes);
         }
 
+        public void GetCurrentStat()
+        {
+            Vigor = Program.swed.ReadInt(VigorStatAddress);
+            Mind = Program.swed.ReadInt(MindStatAddress);
+            Endurance = Program.swed.ReadInt(EnduranceStatAddress);
+            Strength = Program.swed.ReadInt(StrengthStatAddress);
+            Dexterity = Program.swed.ReadInt(DexterityStatAddress);
+            Intelligence = Program.swed.ReadInt(IntelligenceStatAddress);
+            Faith = Program.swed.ReadInt(FaithStatAddress);
+            Arcane = Program.swed.ReadInt(ArcaneStatAddress);
+        }
+
         public void SetStats(int Vigor, int Mind, int Endurance, int Strength, int Dexterity, int Intelligence, int Faith, int Arcane)
         {
-            if (Vigor != 0)
-            {
-                Program.swed.WriteInt(VigorStatAddress, Vigor);
-            }
-            if (Mind != 0)
-            {
-                Program.swed.WriteInt(MindStatAddress, Mind);
-            }
-            if (Endurance != 0)
-            {
-                Program.swed.WriteInt(EnduranceStatAddress, Endurance);
-            }
-            if (Strength != 0)
-            {
-                Program.swed.WriteInt(StrengthStatAddress, Strength);
-            }
-            if (Dexterity != 0)
-            {
-                Program.swed.WriteInt(DexterityStatAddress, Dexterity);
-            }
-            if (Intelligence != 0)
-            {
-                Program.swed.WriteInt(IntelligenceStatAddress, Intelligence);
-            }
-            if (Faith != 0)
-            {
-                Program.swed.WriteInt(FaithStatAddress, Faith);
-            }
-            if (Arcane != 0)
-            {
-                Program.swed.WriteInt(ArcaneStatAddress, Arcane);
-            }
+            Program.swed.WriteInt(VigorStatAddress, Vigor);
+            Program.swed.WriteInt(MindStatAddress, Mind);
+            Program.swed.WriteInt(EnduranceStatAddress, Endurance);
+            Program.swed.WriteInt(StrengthStatAddress, Strength);
+            Program.swed.WriteInt(DexterityStatAddress, Dexterity);
+            Program.swed.WriteInt(IntelligenceStatAddress, Intelligence);
+            Program.swed.WriteInt(FaithStatAddress, Faith);
+            Program.swed.WriteInt(ArcaneStatAddress, Arcane);
         }
     }
 }

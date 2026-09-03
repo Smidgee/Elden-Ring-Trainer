@@ -24,6 +24,7 @@ namespace EldenRingTrainer
 
         protected override void Render()
         {
+
             ImGui.SetNextWindowSize(new Vector2(700, 400), ImGuiCond.Once);
 
             if (ImGui.IsKeyPressed(ImGuiKey.F11) && IsVisible)
@@ -44,6 +45,7 @@ namespace EldenRingTrainer
                 {
                     Style();
                     IsStyleInitialized = true;
+                    _statsService.GetCurrentStat();
                 }
 
                 if (ImGui.BeginTabBar("Main"))
