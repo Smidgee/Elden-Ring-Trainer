@@ -3,6 +3,7 @@
     public class StatsService
     {
         public int Vigor, Mind, Endurance, Strength, Dexterity, Intelligence, Faith, Arcane, Weight;
+        public int Health, FP;
 
         public IntPtr VigorStatAddress, MindStatAddress, EnduranceStatAddress, StrengthStatAddress, DexterityStatAddress, IntelligenceStatAddress, FaithStatAddress, ArcaneStatAddress, WeightStateVisualAddress, WeightRealStateAddress;
         public IntPtr WeightVisualObstructionAddress = Program.moduleBase + 0x7CC661;
@@ -10,6 +11,9 @@
 
         public byte[] NewWeightVisualStateBytes = { 0x90, 0x90, 0x90 };
         public byte[] NewWeightRealStateBytes = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+
+        HealthService healthService = new HealthService();
+        FPService fpService = new FPService();
 
         public StatsService()
         {
@@ -57,6 +61,8 @@
 
         public void SetStats(int Vigor, int Mind, int Endurance, int Strength, int Dexterity, int Intelligence, int Faith, int Arcane)
         {
+            Health = Program.swed.ReadInt(healthService.HPBarSizeAddress);
+            FP = Program.swed.ReadInt(fpService.FPBarSizeAddress);
             Program.swed.WriteInt(VigorStatAddress, Vigor);
             Program.swed.WriteInt(MindStatAddress, Mind);
             Program.swed.WriteInt(EnduranceStatAddress, Endurance);
@@ -65,6 +71,8 @@
             Program.swed.WriteInt(IntelligenceStatAddress, Intelligence);
             Program.swed.WriteInt(FaithStatAddress, Faith);
             Program.swed.WriteInt(ArcaneStatAddress, Arcane);
+            Program.swed.WriteInt(healthService.HPBarSizeAddress, Health);
+            Program.swed.WriteInt(fpService.FPBarSizeAddress, FP);
         }
     }
 }

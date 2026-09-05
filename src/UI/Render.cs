@@ -8,18 +8,22 @@ namespace EldenRingTrainer
     {
         private bool IsStyleInitialized = false;
         private bool IsVisible = true;
+        private bool IsHealthFreezed = false;
+        private bool IsFPFreezed = false;
 
         private readonly RunesService _runesService;
         private readonly StatsService _statsService;
         private readonly HealthService _healthService;
+        private readonly FPService _fpService;
 
         string[] WeightOptions = { "Light Weight", "Medium Weight", "Heavy Charge", "OverLoaded"};
 
-        public RenderUI(RunesService runesService, StatsService statsService, HealthService healthService) : base(2560, 1440)
+        public RenderUI(RunesService runesService, StatsService statsService, HealthService healthService, FPService fpService) : base(2560, 1440)
         {
             _runesService = runesService;
             _statsService = statsService;
             _healthService = healthService;
+            _fpService = fpService;
         }
 
         protected override void Render()
@@ -45,6 +49,8 @@ namespace EldenRingTrainer
                     Style();
                     IsStyleInitialized = true;
                     _statsService.GetCurrentStat();
+                    _healthService.GetCurrentHP();
+                    _fpService.GetCurrentFP();
                 }
 
                 if (ImGui.BeginTabBar("Main"))
@@ -57,10 +63,68 @@ namespace EldenRingTrainer
 
                             ImGui.InputInt("Health Amount", ref _healthService.Health, 0);
 
-                            if (ImGui.Button("Set Health"))
+                            ImGui.SameLine();
+
+                            if (IsHealthFreezed == false)
                             {
-                                _healthService.SetHP(_healthService.Health);
+                                if (ImGui.Button("Set Health"))
+                                {
+                                    _healthService.SetHP(_healthService.Health);
+                                }
+                            } else
+                            {
+                                ImGui.Button("! Restore to Set Health !");
                             }
+
+                            if (ImGui.Button("No Damage"))
+                            {
+                                _healthService.NoDamage();
+                                IsHealthFreezed = true;
+                            }
+
+                            ImGui.SameLine();
+
+                            if (ImGui.Button("Restore Damage"))
+                            {
+                                _healthService.RestoreDamage();
+                                IsHealthFreezed = false;
+                            }
+
+                            ImGui.PopItemWidth();
+                        }
+                        if (ImGui.CollapsingHeader("FP"))
+                        {
+                            ImGui.PushItemWidth(40);
+
+                            ImGui.InputInt("FP Amount", ref _fpService.FP, 0);
+
+                            ImGui.SameLine();
+
+                            if (IsFPFreezed == false)
+                            {
+                                if (ImGui.Button("Set FP"))
+                                {
+                                    _fpService.SetFP(_fpService.FP);
+                                }
+                            } else
+                            {
+                                ImGui.Button("! UnFreeze to Sets FP !");
+                            }
+
+                            if (ImGui.Button("Freeze FP"))
+                            {
+                                _fpService.FreezeFP();
+                                IsFPFreezed = true;
+                            }
+
+                            ImGui.SameLine();
+
+                            if (ImGui.Button("UnFreeze FP"))
+                            {
+                                _fpService.UnFreezeFP();
+                                IsFPFreezed = false;
+                            }
+
                             ImGui.PopItemWidth();
                         }
                         if (ImGui.CollapsingHeader("Stats"))
@@ -68,12 +132,18 @@ namespace EldenRingTrainer
                             ImGui.PushItemWidth(25);
 
                             ImGui.InputInt("Vigor", ref _statsService.Vigor, 0);
+                            ImGui.SameLine();
                             ImGui.InputInt("Mind", ref _statsService.Mind, 0);
+                            ImGui.SameLine();
                             ImGui.InputInt("Endurance", ref _statsService.Endurance, 0);
+                            ImGui.SameLine();
                             ImGui.InputInt("Strength", ref _statsService.Strength, 0);
                             ImGui.InputInt("Dexterity", ref _statsService.Dexterity, 0);
+                            ImGui.SameLine();
                             ImGui.InputInt("Intelligence", ref _statsService.Intelligence, 0);
+                            ImGui.SameLine();
                             ImGui.InputInt("Faith", ref _statsService.Faith, 0);
+                            ImGui.SameLine();
                             ImGui.InputInt("Arcane", ref _statsService.Arcane, 0);
 
                             ImGui.PopItemWidth();
@@ -105,10 +175,25 @@ namespace EldenRingTrainer
 
                         ImGui.PopItemWidth();
 
+                        ImGui.SameLine();
+
                         if (ImGui.Button("Add Rune"))
                         {
                             _runesService.AddRune(_runesService.AddRuneAmount);
                         }
+
+                        if (ImGui.Button("Freeze Rune"))
+                        {
+                            _runesService.FreezeRune();
+                        }
+
+                        ImGui.SameLine();
+
+                        if (ImGui.Button("Unfreeze Rune"))
+                        {
+                            _runesService.UnFreezeRune();
+                        }
+
                         ImGui.EndTabItem();
                     }
                     ImGui.EndTabBar();

@@ -5,6 +5,10 @@ namespace EldenRingTrainer
         public int CurrentRuneAmount, AddRuneAmount;
 
         IntPtr runeAddress;
+        IntPtr FreezeRuneAddress = Program.moduleBase + 0x25E11A;
+
+        public byte[] FreezeRuneBytes = { 0x90, 0x90, 0x90 };
+        public byte[] UnFreezeRuneBytes = { 0x89, 0x41, 0x6C };
 
         public RunesService()
         {
@@ -21,6 +25,16 @@ namespace EldenRingTrainer
         public int GetCurrentRuneAmount()
         {
             return Program.swed.ReadInt(runeAddress);
+        }
+
+        public void FreezeRune()
+        {
+            Program.swed.WriteBytes(FreezeRuneAddress, FreezeRuneBytes);
+        }
+
+        public void UnFreezeRune()
+        {
+            Program.swed.WriteBytes(FreezeRuneAddress, UnFreezeRuneBytes);
         }
     }
 }
