@@ -10,20 +10,23 @@ namespace EldenRingTrainer
         private bool IsVisible = true;
         private bool IsHealthFreezed = false;
         private bool IsFPFreezed = false;
+        private bool IsEnduranceFreezed = false;
 
         private readonly RunesService _runesService;
         private readonly StatsService _statsService;
         private readonly HealthService _healthService;
         private readonly FPService _fpService;
+        private readonly EnduranceService _enduranceService;
 
         string[] WeightOptions = { "Light Weight", "Medium Weight", "Heavy Charge", "OverLoaded"};
 
-        public RenderUI(RunesService runesService, StatsService statsService, HealthService healthService, FPService fpService) : base(2560, 1440)
+        public RenderUI(RunesService runesService, StatsService statsService, HealthService healthService, FPService fpService, EnduranceService enduranceService) : base(2560, 1440)
         {
             _runesService = runesService;
             _statsService = statsService;
             _healthService = healthService;
             _fpService = fpService;
+            _enduranceService = enduranceService;
         }
 
         protected override void Render()
@@ -51,6 +54,7 @@ namespace EldenRingTrainer
                     _statsService.GetCurrentStat();
                     _healthService.GetCurrentHP();
                     _fpService.GetCurrentFP();
+                    _enduranceService.GetCurrentEndurance();
                 }
 
                 if (ImGui.BeginTabBar("Main"))
@@ -108,7 +112,7 @@ namespace EldenRingTrainer
                                 }
                             } else
                             {
-                                ImGui.Button("! UnFreeze to Sets FP !");
+                                ImGui.Button("! Unfreeze to Sets FP !");
                             }
 
                             if (ImGui.Button("Freeze FP"))
@@ -123,6 +127,43 @@ namespace EldenRingTrainer
                             {
                                 _fpService.UnFreezeFP();
                                 IsFPFreezed = false;
+                            }
+
+                            ImGui.PopItemWidth();
+                        }
+
+                        if (ImGui.CollapsingHeader("Endurance"))
+                        {
+                            ImGui.PushItemWidth(40);
+
+                            ImGui.InputInt("Endurance Amount", ref _enduranceService.Endurance, 0);
+
+                            ImGui.SameLine();
+
+                            if (IsEnduranceFreezed == false)
+                            {
+                                if (ImGui.Button("Set Endurance"))
+                                {
+                                    _enduranceService.SetEndurance(_enduranceService.Endurance);
+
+                                }
+                            } else 
+                            {
+                                ImGui.Button("! Unfreeze to Set Endurance !");
+                            }
+
+                            if (ImGui.Button("Freeze Endurance"))
+                            {
+                                _enduranceService.FreezeEndurance();
+                                IsEnduranceFreezed = true;
+                            }
+
+                            ImGui.SameLine();
+
+                            if (ImGui.Button("Unfreeze Endurance"))
+                            {
+                                _enduranceService.UnFreezeEndurance();
+                                IsEnduranceFreezed = false;
                             }
 
                             ImGui.PopItemWidth();

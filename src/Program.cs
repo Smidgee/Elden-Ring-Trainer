@@ -14,7 +14,8 @@ namespace EldenRingTrainer
             StatsService statsService = new StatsService();
             HealthService healthService = new HealthService();
             FPService fpService = new FPService();
-            RenderUI renderUI = new RenderUI(runesService, statsService, healthService, fpService);
+            EnduranceService enduranceService = new EnduranceService();
+            RenderUI renderUI = new RenderUI(runesService, statsService, healthService, fpService, enduranceService);
             renderUI.Start();
         }
     }
