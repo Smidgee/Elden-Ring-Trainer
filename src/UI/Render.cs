@@ -132,7 +132,7 @@ namespace EldenRingTrainer
                             ImGui.PopItemWidth();
                         }
 
-                        if (ImGui.CollapsingHeader("Endurance"))
+                        if (ImGui.CollapsingHeader("Stamina"))
                         {
                             ImGui.PushItemWidth(40);
 
@@ -192,6 +192,9 @@ namespace EldenRingTrainer
                             if (ImGui.Button("Set Stats"))
                             {
                                 _statsService.SetStats(_statsService.Vigor, _statsService.Mind, _statsService.Endurance, _statsService.Strength, _statsService.Dexterity, _statsService.Intelligence, _statsService.Faith, _statsService.Arcane);
+                                _healthService.SetHP(_healthService.Health);
+                                _fpService.SetFP(_fpService.FP);
+                                _enduranceService.SetEndurance(_enduranceService.Endurance);
                             }
                         }
                         if (ImGui.CollapsingHeader("Weight"))

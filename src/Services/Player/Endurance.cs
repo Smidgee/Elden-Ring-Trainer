@@ -5,8 +5,8 @@
 
         public int Endurance;
 
-        IntPtr EnduranceYellowBar, EnduranceBarSize;
-        IntPtr FreezeEnduranceAddress = Program.moduleBase + 0x438AB2;
+        public IntPtr EnduranceYellowBar, EnduranceBarSize;
+        public IntPtr FreezeEnduranceAddress = Program.moduleBase + 0x438AB2;
 
         public byte[] FreezeEnduranceBytes = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
         public byte[] RestoreEnduranceBytes = { 0x89, 0x87, 0x54, 0x01, 0x00, 0x00 };
